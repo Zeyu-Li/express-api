@@ -3,6 +3,7 @@ const mongoose = require("mongoose")
 mongoose.set('useCreateIndex', true)
 
 // database schema for mongodb
+// user with first name, last name, and phone number
 const userSchema = new mongoose.Schema({
     first_name: {
         type: String,
@@ -15,9 +16,11 @@ const userSchema = new mongoose.Schema({
     phone_number: {
         type: String,
         required: true,
+        unique: true,
     },
 })
 
+// simple product with just an ID
 const productSchema = new mongoose.Schema({
     product_id: {
         type: Number,
@@ -28,7 +31,13 @@ const productSchema = new mongoose.Schema({
     // TODO: quantity
 })
 
+// order correlates (one to many) with the user and the product id directly
 const orderSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        unique: true,
+    },
     product_id: {
         type: Number,
         required: true,

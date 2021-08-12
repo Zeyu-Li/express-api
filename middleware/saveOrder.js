@@ -1,7 +1,7 @@
 const {User, Product, Order} = require("../models/models")
 
 /**
- * finds if product exists, otherwise return
+ * saves the order
  * @param {*} req 
  * user request
  * @param {*} res 
@@ -10,18 +10,15 @@ const {User, Product, Order} = require("../models/models")
  * next piece of middleware callback
  * @returns response
  */
-const findProduct = async (req, res, next) => {
-    let product
+const saveOrder = async (req, res, next) => {
+    // check if user exists
+    let order
     try {
-        // TODO: sanitize
-        let request_product_id = parseInt(req.body.product_id)
         // check if product is within the database
-        await Product.find({product_id: request_product_id}).then((result)=>{
+        await User.find({first_name: req.body.first_name, last_name: req.body.last_name, phone_number: req.body.phone_number}).then((result)=>{
             // if no product found length will be 0
             if (result.length === 0) {
-                // if product is not found, return error with message
-                // NOTE: message json may not be safe
-                return res.status(400).json({message: `The product with the id of ${req.body.product_id} is not found`})
+                // TODO: create user
             }
         }).catch(error => {
             return res.status(500).json({message: "The request data is invalid or not clean"})
@@ -31,8 +28,8 @@ const findProduct = async (req, res, next) => {
         return res.status(400).json({message: "The request data is invalid or not clean"})
     }
 
-    res.product = product
+    res.order = order
     next()
 }
 
-module.exports = findProduct
+module.exports = saveOrder

@@ -19,9 +19,15 @@ A client can send the above request and expect the following behavior
    * a user is successfully found or created, and an order object is created
 * A bad request (400) response with appropriate error message if:
    * the request data is invalid or not clean
+   
    * a product with the given product_id is not found
+   
    * a user fails to be found or created
-   Data Models to Consider:
+   
+     
+
+Data Models to Consider:
+
 * User
 * Product
 * Order
