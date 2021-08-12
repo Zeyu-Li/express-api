@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const [User, ] = require("../models/models")
+const {User, Product, Order} = require("../models/models")
 
 // test get
 router.get("/", (req, res) => {
