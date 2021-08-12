@@ -11,9 +11,36 @@ GET http://localhost:3000/api
 
 ### Adding a product
 
-POSt http://localhost:3000/api/products
+POST http://localhost:3000/api/products
 Content-Type: application/json
 
 {
     "product_id": 2345
+}
+
+### Main Order
+
+POST http://localhost:3000/api
+Content-Type: application/json
+
+{
+    "product_id": 2345
+}
+
+### Bad Order
+
+POST http://localhost:3000/api
+Content-Type: application/json
+
+{
+    "product_id": 12345
+}
+
+### Invalid Order
+
+POST http://localhost:3000/api
+Content-Type: application/json
+
+{
+    "product_id": "abc"
 }
