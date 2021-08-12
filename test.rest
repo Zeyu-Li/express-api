@@ -8,3 +8,12 @@ Content-Type: application/json
 ###
 
 GET http://localhost:3000/api
+
+### Adding a product
+
+POSt http://localhost:3000/api/products
+Content-Type: application/json
+
+{
+    "product_id": 2345
+}
