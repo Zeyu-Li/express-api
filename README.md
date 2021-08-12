@@ -10,11 +10,14 @@ To run the app do `npm start`
 
 ## Frameworks
 
-* express
-* mongoose (mongodb)
+* [express](https://www.npmjs.com/package/express)
+* [mongoose (mongodb)](https://www.npmjs.com/package/mongoose)
+* [express-mongo-sanitize](https://www.npmjs.com/package/express-mongo-sanitize)
 * Testing: ~~postman~~ vscode
 
 ## Hours
+
+
 
 
 
@@ -22,4 +25,7 @@ To run the app do `npm start`
 
 * First time making an API connected to a database
 * First time using mongodb in JavaScript/TypeScript
+* First time sanitizing in express -> decided to use express-mongo-sanitize
+
+
 

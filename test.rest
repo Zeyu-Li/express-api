@@ -44,3 +44,12 @@ Content-Type: application/json
 {
     "product_id": "abc"
 }
+
+### Invalid Order 2
+
+POST http://localhost:3000/api
+Content-Type: application/json
+
+{
+    "product_id": "-- \" find ;'"
+}

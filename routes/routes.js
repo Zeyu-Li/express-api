@@ -1,6 +1,8 @@
 const express = require("express")
-const router = express.Router()
 const {User, Product, Order} = require("../models/models")
+const findProduct = require("../middleware/findProduct")
+
+const router = express.Router()
 
 const saveOrder = async (req, res, next) => {
     let product
@@ -32,7 +34,7 @@ router.get("/", (req, res) => {
     res.send("Get Successful")
 })
 
-router.post("/", saveOrder, async (req, res) => {
+router.post("/", findProduct, async (req, res) => {
     // res.status(200).send("Order successfully placed")
 })
 
