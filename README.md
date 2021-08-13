@@ -1,6 +1,6 @@
 # Express API
 
-![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg) ![Build](https://github.com/Zeyu-Li/express-api/workflows/Express%20Test/badge.svg)
 
 An express API linked to an NoSQL (mongodb) database
 
