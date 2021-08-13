@@ -26,7 +26,7 @@ CI testing:
 
 Building: 4 Hours
 
-Testing: 3 hours
+Endpoint Testing: 3 hours
 
 
 
@@ -37,5 +37,8 @@ Testing: 3 hours
 * First time sanitizing in express -> decided to use express-mongo-sanitize
 * First time doing REST endpoint testing
 
+Bugs:
 
+Set headers after they are sent to the client warning
 
+Endpoint tests not all passing
