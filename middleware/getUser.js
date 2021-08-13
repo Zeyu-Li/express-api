@@ -33,7 +33,7 @@ const getUser = async (req, res, next) => {
                     }).catch(err => {
                         // else fail to save output message
                         // TODO: parse error in middleware so not to send the raw error to user
-                        return res.status(400).json({message: err.message})
+                        return res.status(400).json({message: "Failed to create user"})
                     })
                 } catch (err) {
                     return res.status(500).json({message: "The request data is invalid or not clean"})
