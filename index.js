@@ -29,6 +29,7 @@ app.use(express.json())
 
 // gets model from model/model
 const model = require("./routes/routes")
+const models = require("./models/models")
 // sanitizes json strings
 app.use(mongoSanitize({
     onSanitize: ({ req, key }) => {
@@ -42,4 +43,4 @@ app.listen(3000, ()=>{
     // console.log("Started Server")
 })
 
-export default app
+module.exports = app
