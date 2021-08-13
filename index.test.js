@@ -18,3 +18,5 @@ describe("GET / api", () => {
         })
     })
 })
+
+afterAll(() => setTimeout(() => process.exit(), 1000))
