@@ -8,15 +8,11 @@ const getUser = require("../middleware/getUser")
 
 const router = express.Router()
 
+
 // get all orders
 router.get("/", (req, res) => {
     // from https://stackoverflow.com/questions/14103615/mongoose-get-full-list-of-users
     Order.find({}, (err, orders) => {
-        let orderMap = {}
-
-        orders.forEach((order) => {
-            orderMap[order._id] = order;
-        });
         return res.status(200).send({orders: orders})
     })
 })

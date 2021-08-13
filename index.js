@@ -1,5 +1,6 @@
 const express = require("express")
 const mongoose = require("mongoose")
+const mongoSanitize = require('express-mongo-sanitize')
 
 const app = express()
 
@@ -10,6 +11,9 @@ const mongooseURL = "mongodb://localhost/api"
 mongoose.connect(mongooseURL, {useNewUrlParser: true, useUnifiedTopology: true})
 const db = mongoose.connection
 
+// remove db (for testing)
+// mongoose.connection.dropDatabase()
+
 // on mongodb error, print to console error
 db.on("error", err => {
     console.error(err)
@@ -19,11 +23,18 @@ db.on("error", err => {
 //     console.log("DB on open")
 // })
 
+
 // takes in json
 app.use(express.json())
 
 // gets model from model/model
 const model = require("./routes/routes")
+// sanitizes json strings
+app.use(mongoSanitize({
+    onSanitize: ({ req, key }) => {
+        req.status(400).send("The request data is invalid or not clean")
+    },
+}))
 app.use("/api", model)
 
 // controller

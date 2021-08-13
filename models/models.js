@@ -35,7 +35,6 @@ const orderSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        unique: true,
     },
     product_id: {
         type: Number,
