@@ -17,7 +17,7 @@ To run the tests do `npm test`
 * [express-mongo-sanitize](https://www.npmjs.com/package/express-mongo-sanitize)
 * Testing: vscode REST client extension
 
-CI testing:
+CI endpoint testing:
 
 * Jest
 * Supertest
