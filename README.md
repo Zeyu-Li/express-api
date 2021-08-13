@@ -6,6 +6,8 @@ An express API linked to an NoSQL (mongodb) database
 
 To run the app do `npm start`
 
+To run the tests do `npm test`
+
 
 
 ## Frameworks
@@ -24,11 +26,11 @@ CI testing:
 
 Building: 4 Hours
 
-Testing: 2 hours
+Testing: 3 hours
 
 
 
-## Issues
+## Issues + notes
 
 * First time making an API connected to a database
 * First time using mongodb in JavaScript/TypeScript

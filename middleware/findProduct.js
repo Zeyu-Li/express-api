@@ -24,7 +24,7 @@ const findProduct = async (req, res, next) => {
                 return res.status(400).json({message: `The product with the id of ${req.body.product_id} is not found`})
             }
         }).catch(error => {
-            return res.status(500).json({message: "The request data is invalid or not clean"})
+            return res.status(400).json({message: "The request data is invalid or not clean"})
         })
     } catch (err) {
         // console.log(err)
