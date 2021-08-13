@@ -2,7 +2,7 @@ POST http://localhost:3000/api
 Content-Type: application/json
 
 {
-    "first_name": "Alan"
+    "first_name": "Elon"
 }
 
 ###
@@ -24,15 +24,21 @@ POST http://localhost:3000/api
 Content-Type: application/json
 
 {
+    "first_name": "Elon",
+    "last_name": "Musk",
+    "phone_number": "(123) 456-1234",
     "product_id": 2345
 }
 
-### Bad Order
+### Bad Order (order does not exist)
 
 POST http://localhost:3000/api
 Content-Type: application/json
 
 {
+    "first_name": "Elon",
+    "last_name": "Musk",
+    "phone_number": "(123) 456-1234",
     "product_id": 12345
 }
 
@@ -42,6 +48,9 @@ POST http://localhost:3000/api
 Content-Type: application/json
 
 {
+    "first_name": "Elon",
+    "last_name": "Musk",
+    "phone_number": "(123) 456-1234",
     "product_id": "abc"
 }
 
@@ -51,5 +60,21 @@ POST http://localhost:3000/api
 Content-Type: application/json
 
 {
+    "first_name": "Elon",
+    "last_name": "Musk",
+    "phone_number": "(123) 456-1234",
     "product_id": "-- \" find ;'"
+}
+
+### Invalid
+
+POST http://localhost:3000/api
+Content-Type: application/json
+
+{
+    "first_name": "Elon",
+    "last_name": 12.6,
+    "phone_number": "(123) 456-1234",
+    "product_id": 2345,
+    "extra": 1234
 }

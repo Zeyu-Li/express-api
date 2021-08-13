@@ -1,8 +1,10 @@
 /* controller */
 const express = require("express")
 const {User, Product, Order} = require("../models/models")
+// middleware
 const findProduct = require("../middleware/findProduct")
 const saveOrder = require("../middleware/saveOrder")
+const getUser = require("../middleware/getUser")
 
 const router = express.Router()
 
@@ -11,8 +13,8 @@ router.get("/", (req, res) => {
     res.send("Get Successful")
 })
 
-router.post("/", findProduct, saveOrder, async (req, res) => {
-    // res.status(200).send("Order successfully placed")
+router.post("/", findProduct, getUser, saveOrder, async (req, res) => {
+    res.status(200).send("Order successfully placed")
 })
 
 // for updating (if needed)

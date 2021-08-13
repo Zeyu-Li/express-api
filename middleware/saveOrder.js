@@ -1,4 +1,4 @@
-const {User, Product, Order} = require("../models/models")
+const {Order} = require("../models/models")
 
 /**
  * saves the order
@@ -11,24 +11,29 @@ const {User, Product, Order} = require("../models/models")
  * @returns response
  */
 const saveOrder = async (req, res, next) => {
-    // check if user exists
-    let order
+    // TODO: check if order exists to increase quantity?
+
     try {
-        // check if product is within the database
-        await User.find({first_name: req.body.first_name, last_name: req.body.last_name, phone_number: req.body.phone_number}).then((result)=>{
-            // if no product found length will be 0
-            if (result.length === 0) {
-                // TODO: create user
-            }
-        }).catch(error => {
-            return res.status(500).json({message: "The request data is invalid or not clean"})
+        console.log(res.locals)
+        
+        // create new order
+        const order = new Order({
+            user: res.locals.user._id,
+            product_id: req.body.product_id,
+        })
+        
+        order.save().then(result => {
+            // if successfully added user, console out
+            // console.log(result)
+        }).catch(err => {
+            // else fail to save output message
+            // TODO: parse error in middleware so not to send the raw error to user
+            res.status(400).json({message: err.message})
         })
     } catch (err) {
-        // console.log(err)
-        return res.status(400).json({message: "The request data is invalid or not clean"})
+        return res.status(500).json({message: "The request data is invalid or not clean"})
     }
-
-    res.order = order
+    
     next()
 }
 

@@ -1,4 +1,4 @@
-const {User, Product, Order} = require("../models/models")
+const {Product} = require("../models/models")
 
 /**
  * finds if product exists, otherwise return
@@ -32,6 +32,8 @@ const findProduct = async (req, res, next) => {
     }
 
     res.product = product
+    // if product is not found, the next piece of middleware 
+    // invoked by the next() callback will not be triggered
     next()
 }
 
