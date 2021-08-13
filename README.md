@@ -32,6 +32,8 @@ Endpoint Testing: 3 hours
 
 ## Issues + notes
 
+Since I've been mostly working with mobile-firebase and with frontend, I had to refresh my memory on backend things + this is my first time making a REST API connected to a database
+
 * First time making an API connected to a database
 * First time using mongodb in JavaScript/TypeScript
 * First time sanitizing in express -> decided to use express-mongo-sanitize
