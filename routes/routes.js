@@ -8,13 +8,21 @@ const getUser = require("../middleware/getUser")
 
 const router = express.Router()
 
-// test get
+// get all orders
 router.get("/", (req, res) => {
-    res.send("Get Successful")
+    // from https://stackoverflow.com/questions/14103615/mongoose-get-full-list-of-users
+    Order.find({}, (err, orders) => {
+        let orderMap = {}
+
+        orders.forEach((order) => {
+            orderMap[order._id] = order;
+        });
+        return res.status(200).send({orders: orders})
+    })
 })
 
 router.post("/", findProduct, getUser, saveOrder, async (req, res) => {
-    res.status(200).send("Order successfully placed")
+    return res.status(200).send("Order successfully placed")
 })
 
 // for updating (if needed)

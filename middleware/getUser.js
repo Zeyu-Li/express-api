@@ -33,12 +33,13 @@ const getUser = async (req, res, next) => {
                     }).catch(err => {
                         // else fail to save output message
                         // TODO: parse error in middleware so not to send the raw error to user
-                        res.status(400).json({message: err.message})
+                        return res.status(400).json({message: err.message})
                     })
                 } catch (err) {
                     return res.status(500).json({message: "The request data is invalid or not clean"})
                 }
             } else {
+                // assign user from the found result
                 user = result
             }
         }).catch(error => {
@@ -50,7 +51,7 @@ const getUser = async (req, res, next) => {
     }
 
     // pass users between middleware
-    console.log(user)
+    // console.log(user)
     
     res.locals.user = user
     next()
