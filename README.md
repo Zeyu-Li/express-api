@@ -4,7 +4,11 @@
 
 An express API linked to an NoSQL (mongodb) database
 
-To run the app do `npm start`
+## Running
+
+1. First install dependencies with `npm install`
+
+2. To run the app do `npm start`
 
 To run the tests do `npm test`
 
@@ -32,7 +36,7 @@ Endpoint Testing: 3 hours
 
 ## Issues + notes
 
-Since I've been mostly working with mobile-firebase and with frontend, I had to refresh my memory on backend things + this is my first time making a REST API connected to a database
+Since I've been mostly working with mobile-firebase and with frontend, I had to refresh my memory on backend things + this is my first time making a REST API connected to a database. My experience with fullstack was mostly with firebase and django (which loosely follows a MVC model with most of the unlying (low-level) SQL queries abstracted away). 
 
 * First time making an API connected to a database
 * First time using mongodb in JavaScript/TypeScript
