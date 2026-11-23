@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
-// stops errors
-mongoose.set('useCreateIndex', true)
+// defense in depth against NoSQL injection: query filters treat any
+// user-supplied "$" operator object as a literal value instead of an operator
+mongoose.set("sanitizeFilter", true)
 
 // database schema for mongodb
 // user with first name, last name, and phone number

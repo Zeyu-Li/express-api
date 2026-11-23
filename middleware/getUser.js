@@ -11,48 +11,11 @@ const {User} = require("../models/models")
  * @returns response
  */
 const getUser = async (req, res, next) => {
-    // check if user exists
-    let user
-
-    try {
-        // check if product is within the database
-        await User.find({"$and": [{first_name: req.body.first_name}, {last_name: req.body.last_name}, {phone_number: req.body.phone_number}]}).then((result)=>{
-            // if no product found length will be 0
-            if (result.length === 0) {
-                try {
-                    // create user
-                    user = new User({
-                        first_name: req.body.first_name,
-                        last_name: req.body.last_name,
-                        phone_number: req.body.phone_number,
-                    })
-                    
-                    user.save().then(result => {
-                        // if successfully added user, console out
-                        // console.log(result)
-                    }).catch(err => {
-                        // else fail to save output message
-                        // TODO: parse error in middleware so not to send the raw error to user
-                        return res.status(400).json({message: "Failed to create user"})
-                    })
-                } catch (err) {
-                    return res.status(500).json({message: "The request data is invalid or not clean"})
-                }
-            } else {
-                // assign user from the found result
-                user = result
-            }
-        }).catch(error => {
-            return res.status(500).json({message: "The request data is invalid or not clean"})
-        })
-    } catch (err) {
-        // console.log(err)
-        return res.status(400).json({message: "The request data is invalid or not clean"})
-    }
+    const {first_name, last_name, phone_number} = req.body
+    const user = await User.findOne({first_name, last_name, phone_number}) ??
+        await User.create({first_name, last_name, phone_number})
 
     // pass users between middleware
-    // console.log(user)
-    
     res.locals.user = user
     next()
 }
