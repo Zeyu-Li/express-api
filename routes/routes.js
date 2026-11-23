@@ -1,23 +1,24 @@
 /* controller */
 const express = require("express")
-const {User, Product, Order} = require("../models/models")
+const {Product, Order} = require("../models/models")
 // middleware
+const validateOrder = require("../middleware/validateOrder")
 const findProduct = require("../middleware/findProduct")
 const saveOrder = require("../middleware/saveOrder")
 const getUser = require("../middleware/getUser")
 
 const router = express.Router()
 
+// mongodb duplicate key error code
+const DUPLICATE_KEY = 11000
 
 // get all orders
-router.get("/", (req, res) => {
-    // from https://stackoverflow.com/questions/14103615/mongoose-get-full-list-of-users
-    Order.find({}, (err, orders) => {
-        return res.status(200).send({orders: orders})
-    })
+router.get("/", async (req, res) => {
+    const orders = await Order.find({})
+    return res.status(200).send({orders: orders})
 })
 
-router.post("/", findProduct, getUser, saveOrder, async (req, res) => {
+router.post("/", validateOrder, findProduct, getUser, saveOrder, async (req, res) => {
     return res.status(200).send("Order successfully placed")
 })
 
@@ -28,19 +29,23 @@ router.post("/", findProduct, getUser, saveOrder, async (req, res) => {
 
 // adds a product
 router.post("/products", async (req, res) => {
-    const product = new Product({
-        product_id: req.body.product_id
-    })
+    const product_id = req.body?.product_id
+    if (!Number.isInteger(product_id)) {
+        return res.status(400).json({message: "The request data is invalid or not clean"})
+    }
 
-    product.save().then(result => {
-        // if successfully added product, send the message of
-        // Product added successfully on code 200 
-        res.status(200).json({message: "Product added successfully"})
-    }).catch(err => {
-        // else fail to save output message
-        // TODO: parse error in middleware so not to send the raw error to user
-        res.status(400).json({message: err.message})
-    })
+    try {
+        await Product.create({product_id})
+    } catch (err) {
+        if (err.code === DUPLICATE_KEY) {
+            // don't send the raw database error (it names the db, collection and index)
+            return res.status(400).json({message: `The product with the id of ${product_id} already exists`})
+        }
+        throw err
+    }
+    // if successfully added product, send the message of
+    // Product added successfully on code 200 
+    return res.status(200).json({message: "Product added successfully"})
 })
 
 

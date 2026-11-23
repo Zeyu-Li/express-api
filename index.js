@@ -1,46 +1,32 @@
 const express = require("express")
 const mongoose = require("mongoose")
-const mongoSanitize = require('express-mongo-sanitize')
+const routes = require("./routes/routes")
+const errorHandler = require("./middleware/errorHandler")
 
 const app = express()
 
-// can be changed to be .env if so chose later
-const mongooseURL = "mongodb://localhost/api"
-
-// model/db
-mongoose.connect(mongooseURL, {useNewUrlParser: true, useUnifiedTopology: true})
-const db = mongoose.connection
-
-// remove db (for testing)
-// mongoose.connection.dropDatabase()
-
-// on mongodb error, print to console error
-db.on("error", err => {
-    console.error(err)
-})
-
-// db.once("open", err => {
-//     console.log("DB on open")
-// })
-
-
 // takes in json
 app.use(express.json())
+app.use("/api", routes)
+// must be registered last so it catches errors from every route
+app.use(errorHandler)
 
-// gets model from model/model
-const model = require("./routes/routes")
-const models = require("./models/models")
-// sanitizes json strings
-app.use(mongoSanitize({
-    onSanitize: ({ req, key }) => {
-        req.status(400).send("The request data is invalid or not clean")
-    },
-}))
-app.use("/api", model)
+// only connect and listen when run directly, so tests can import the app
+if (require.main === module) {
+    const mongooseURL = process.env.MONGODB_URI || "mongodb://localhost/api"
+    const port = Number(process.env.PORT) || 3000
 
-// controller
-app.listen(3000, ()=>{
-    // console.log("Started Server")
-})
+    // on mongodb error, print to console error
+    mongoose.connection.on("error", err => {
+        console.error(err)
+    })
+
+    mongoose.connect(mongooseURL)
+        .then(() => app.listen(port))
+        .catch(err => {
+            console.error(err)
+            process.exit(1)
+        })
+}
 
 module.exports = app

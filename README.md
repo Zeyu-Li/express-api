@@ -6,11 +6,16 @@ An express API linked to an NoSQL (mongodb) database
 
 ## Running
 
-1. First install dependencies with `npm install`
+Requires Node.js 20.19 or newer (CI uses Node 24) and [yarn](https://classic.yarnpkg.com/).
 
-2. To run the app do `npm start`
+1. First install dependencies with `yarn install`
 
-To run the tests do `npm test`
+2. To run the app do `yarn start` (or `yarn dev` to restart on file changes)
+
+The app connects to `mongodb://localhost/api` and listens on port 3000 by default; override them with the
+`MONGODB_URI` and `PORT` environment variables.
+
+To run the tests do `yarn test` (they start a throwaway in-memory MongoDB, so no local database is needed)
 
 
 
@@ -18,13 +23,13 @@ To run the tests do `npm test`
 
 * [express](https://www.npmjs.com/package/express)
 * [mongoose (mongodb)](https://www.npmjs.com/package/mongoose)
-* [express-mongo-sanitize](https://www.npmjs.com/package/express-mongo-sanitize)
 * Testing: vscode REST client extension
 
 CI endpoint testing:
 
-* Jest
+* Node.js test runner (`node:test`)
 * Supertest
+* mongodb-memory-server
 
 ## Hours
 
@@ -43,7 +48,7 @@ Since I've been mostly working with mobile-firebase and with frontend, I had to 
 * First time sanitizing in express -> decided to use express-mongo-sanitize
 * First time doing REST endpoint testing
 
-Bugs:
+Bugs (both fixed in the dependency/security update):
 
 Set headers after they are sent to the client warning
 
